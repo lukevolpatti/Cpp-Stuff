@@ -1,7 +1,6 @@
 #ifndef GRAPH_H
 #define GRAPH_H
 #include <vector>
-#define NODES 8
 using namespace std;
 
 class Node{
@@ -24,9 +23,8 @@ public:
 
 class adjList{
 public:
-	Node* ptrArray[NODES];
+	vector <Node*> ptrArray;
 
-	adjList();
 	void addEdge(int start, int end);
 };
 

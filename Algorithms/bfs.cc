@@ -9,7 +9,7 @@ void BFS(Node* root, adjList* aL){
 	if(!root) return;
 
 	// Setting all nodes to univisited
-	for(int i = 0; i < aL->ptrArray.size(); i++){
+	for(int i = 0; i < NODES; i++){
 		aL->ptrArray[i]->visited = 0;
 	}
 	
@@ -32,5 +32,16 @@ void BFS(Node* root, adjList* aL){
 }
 
 int main(){
-
+	adjList* aL = new adjList;
+	aL->addEdge(1, 4);
+	aL->addEdge(1, 3);
+	aL->addEdge(1, 2);
+	aL->addEdge(2, 6);
+	aL->addEdge(2, 5);
+	aL->addEdge(4, 8);
+	aL->addEdge(4, 7);
+	aL->addEdge(6, 5);
+	aL->addEdge(7, 1);
+	aL->addEdge(7, 6);
+	BFS(aL->ptrArray[0], aL);
 }
