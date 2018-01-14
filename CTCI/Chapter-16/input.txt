@@ -1,0 +1,5 @@
+This is a poem.
+It is a poem to test my computer program.
+The computer program will read the poem and determine how many of each word is in the poem. It will return a map.
+This poem is over.
+It was a nice poem.
