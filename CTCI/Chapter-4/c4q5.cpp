@@ -25,6 +25,52 @@ bool isBST(Node* root){
 	return 1;
 }
 
+// Constant space solution (if recursion is ignored)
+// Assume definition of BST is all left nodes smaller, all right nodes bigger.
+int isBST(Node* head, bool isLeftChild){
+    int left;
+    int right; 
+        
+    if(!head->left && !head->right) return head->val;
+
+    if(head->left) {
+        left = isBST(head->left, true);
+        if(left == INT_MIN) return INT_MIN;
+        if(left >= head->val) return INT_MIN;
+    }
+    if(head->right) {
+        right = isBST(head->right, false);
+        if(right == INT_MIN) return INT_MIN;
+        if(right <= head->val) return INT_MIN;
+    }
+
+    if(isLeftChild){
+        if(!head->left && !head->right) return head->val;
+        if(!head->right) return head->val;
+        if(!head->left) return right;
+        return right;
+    }
+
+    if(!isLeftChild){
+        if(!head->left && !head->right) return head->val;
+        if(!head->left) return head->val;
+        if(!head->right) return left;
+        return left;
+    }
+}
+
+bool isValidBST(Node* head){
+    if(!head) return true;
+    if(isBST(head, true) != INT_MIN) return true;
+    return false;
+}
+
+bool checkBST(Node* head){
+	if(!head) return true;
+	if(isBST(head, true) != INT_MIN) return true;
+	return false;
+}
+
 int main(){
 	// Tested and working on LeetCode
 }
