@@ -59,6 +59,6 @@ int main(){
 
 	Base* basePtr = &d;
 	basePtr->print();
-	basePtr->setVal2(23);
+	//basePtr->setVal2(23); Results in error!
 	
 }
