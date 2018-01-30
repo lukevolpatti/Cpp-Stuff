@@ -20,6 +20,11 @@ Node* intersection(Node* l1, Node* l2){
 	return NULL;
 }
 
+// Constant space solution: go through both lists and count number of nodes.
+// Advance the start point of the longer one by the difference in nodes, then
+// increment both pointers together until either they intersect or one reaches
+// the end.
+
 int main(){
 	// Some testing
 	Node* N1 = new Node;

@@ -15,7 +15,7 @@ bool isUnique(string s){
 	return true;
 }
 
-// Array implementatio (assume ASCII)
+// Array implementation (assume ASCII)
 bool isUniqueASCII(string s){
 	bool a[128] = {};
 

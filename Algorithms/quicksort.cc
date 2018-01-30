@@ -4,32 +4,38 @@
 #include <vector>
 using namespace std;
 
-int partition(vector<int> & v, int m, int n){
-	int pivot = v[n]; // This is the pivot. It is the last element.
-	int i = m - 1; // Start i before the first element.
-	for(int j = m; j < n; j++){ // Iterate right up to the last element.
-		if(v[j] <= pivot){ // v[j] has to go in smaller half of array
-			i = i + 1;
-			// Swapping:
-			int temp = v[j];
-			v[j] = v[i];
-			v[i] = temp;
+// Partition will return the index of the element that has been put in its 
+// proper place. 
+int partition(vector<int>& v, int m, int n){
+	int pivot = v[n]; // The last element will be the pivot.
+					  // We will put it in its proper place.
+	int i = m;
+	int temp;
+	for(int j = m; j < n; j++){
+		if(v[j] <= pivot){
+			// Do a swap and increment i
+			temp = v[i];
+			v[i] = v[j];
+			v[j] = temp;
+
+			i++;
 		}
 	}
-	// Put the pivot in its spot:
-	v[n] = v[i + 1];
-	v[i + 1] = pivot;
-	return i + 1; // Return the pivot index.
+
+	// Now i is at the position of the first element in the array larger than
+	// the pivot. So we'll swap v[i] and the pivot.
+	v[n] = v[i];
+	v[i] = pivot;
+	return i; // Return the pivot index.
 }
 
-void quicksort(vector<int> & v, int m, int n){
+void quicksort(vector<int>& v, int m, int n){
 	if(m < n){
 		int q = partition(v, m, n);
-		quicksort(v, m, q - 1);
+		quicksort(v, m, q -1);
 		quicksort(v, q + 1, n);
 	}
 }
-
 
 int main(){
 	vector<int> v;

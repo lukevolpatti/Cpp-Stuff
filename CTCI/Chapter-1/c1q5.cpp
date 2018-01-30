@@ -10,8 +10,8 @@ bool oneAway(string orig, string s){
 		for(int i = 0; i < s.size(); i++){
 			if(orig[i] != s[i]){
 				if(hasBeenDifferent) return false;
+				hasBeenDifferent = true;
 			}
-			hasBeenDifferent = true;
 		}
 		return true;
 	}
