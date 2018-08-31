@@ -1,49 +1,32 @@
-// Depth first search
 #include "graph.h"
-#include <iostream>
 #include <stack>
-using namespace std;
+#include <iostream>
 
-void DFS(Node* root, adjList* aL){
-	stack<Node*> s;
-	if(!root) return;
+void AdjList::dfs(int start){
+    if(start < 0 || start >= aL.size()) return;
 
-	// Setting all nodes to univisited
-	for(int i = 0; i < aL->ptrArray.size(); i++){
-		aL->ptrArray[i]->visited = 0;
-	}
-
-	s.push(root);
-	root->visited = 1;
-
-	while(!s.empty()){
-		Node* curr = s.top();
-		s.pop();
-		cout << curr->vertexLabel << endl;
-		Node* temp = aL->ptrArray[curr->vertexLabel - 1];
-		while(temp){
-			if(!temp->visited){ // only add unvisited nodes to the stack
-				s.push(temp);
-				temp->visited = true;
-			}
-			temp = temp->next;
-		}
-	}
-}
-
-void DFSrecursive(Node* root, adjList* aL){
-	if(!root) return;
-	if(root->visited) return;
-	root->visited = true;
-	cout << root->vertexLabel << endl;
-
-	Node* temp = aL->ptrArray[root->vertexLabel - 1];
-	while(temp){
-		DFSrecursive(temp, aL);
-		temp = temp->next;
-	}
+    for(int i = 0; i < aL.size(); i++) aL[i].visited = false;
+    stack<int> s;
+    s.push(start);
+    while(!s.empty()){
+        int currNode = s.top();
+        s.pop();
+        if(currNode >= 0 && currNode < aL.size() && !aL[currNode].visited){
+            for(list<ListNode>::iterator i = aL[currNode].l.begin();
+                    i != aL[currNode].l.end(); i++) s.push(i->vertexLabel);
+            aL[currNode].visited = true;
+            cout << currNode << " ";
+        }
+    }
+    cout << endl;
 }
 
 int main(){
-
+    AdjList a1;
+    a1.addEdge(0, 1);
+    a1.addEdge(0, 2);
+    a1.addEdge(0, 3);
+    a1.addEdge(1, 4);
+    a1.addEdge(1, 5);
+    a1.dfs(0);
 }

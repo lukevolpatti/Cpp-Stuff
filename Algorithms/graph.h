@@ -1,33 +1,29 @@
 #ifndef GRAPH_H
 #define GRAPH_H
 #include <vector>
-#define NODES 8
+#include <list>
 using namespace std;
 
-class Node{
+class ListNode{
 public:
-	bool visited;
-	int vertexLabel;
-	Node* next;
-
-	Node(){
-		next = NULL;
-		visited = false;
-	}
-
-	Node(int vertex){
-		next = NULL;
-		visited = false;
-		vertexLabel = vertex;
-	}
+    int vertexLabel;
+    int weight;
+    ListNode(int _vertexLabel = 0, int _weight = 0);
 };
 
-class adjList{
+class AdjNode{
 public:
-	Node* ptrArray[NODES];
+    bool visited;
+    list<ListNode> l;
+    AdjNode();
+};
 
-	adjList();
-	void addEdge(int start, int end);
+class AdjList{
+public:
+    vector<AdjNode> aL;
+    void addEdge(int start, int end, int weight = 0);
+    void bfs(int start);
+    void dfs(int start);
 };
 
 #endif

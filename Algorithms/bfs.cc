@@ -1,47 +1,32 @@
-// Breadth first search
 #include "graph.h"
-#include <iostream>
 #include <queue>
-using namespace std;
+#include <iostream>
 
-void BFS(Node* root, adjList* aL){
-	queue<Node*> q;
-	if(!root) return;
+void AdjList::bfs(int start){
+    if(start < 0 || start >= aL.size()) return;
 
-	// Setting all nodes to univisited
-	for(int i = 0; i < NODES; i++){
-		aL->ptrArray[i]->visited = 0;
-	}
-	
-	q.push(root);
-	root->visited = 1;
-
-	while(!q.empty()){
-		Node* curr = q.front();
-		q.pop();
-		cout << curr->vertexLabel << endl;
-		Node* temp = aL->ptrArray[curr->vertexLabel - 1];
-		while(temp){
-			if(!temp->visited){ // only add unvisited nodes to the queue
-				q.push(temp);
-				temp->visited = true;
-			}
-			temp = temp->next;
-		}
-	}
+    for(int i = 0; i < aL.size(); i++) aL[i].visited = false;
+    queue<int> q;
+    q.push(start);
+    while(!q.empty()){
+        int currNode = q.front();
+        q.pop();
+        if(currNode >= 0 && currNode < aL.size() && !aL[currNode].visited){
+            for(list<ListNode>::iterator i = aL[currNode].l.begin();
+                    i != aL[currNode].l.end(); i++) q.push(i->vertexLabel);
+            aL[currNode].visited = true;
+            cout << currNode << " ";
+        }
+    }
+    cout << endl;
 }
 
 int main(){
-	adjList* aL = new adjList;
-	aL->addEdge(1, 4);
-	aL->addEdge(1, 3);
-	aL->addEdge(1, 2);
-	aL->addEdge(2, 6);
-	aL->addEdge(2, 5);
-	aL->addEdge(4, 8);
-	aL->addEdge(4, 7);
-	aL->addEdge(6, 5);
-	aL->addEdge(7, 1);
-	aL->addEdge(7, 6);
-	BFS(aL->ptrArray[0], aL);
+    AdjList a1;
+    a1.addEdge(0, 1);
+    a1.addEdge(0, 2);
+    a1.addEdge(0, 3);
+    a1.addEdge(1, 4);
+    a1.addEdge(1, 5);
+    a1.bfs(0);
 }
