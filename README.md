@@ -7,4 +7,4 @@ A repository for my implementations of data structures/algorithms, code examples
 - **LeetCode**: Solutons to LeetCode questions
 - **Misc**: Solutions to other problems
 - **OOP**: Example code implementing some common object oriented programming concepts
-- **STL Examples**: Examples of some common C++ Stantdard Template Library containers
+- **STL Examples**: Examples of some common C++ Standard Template Library containers
