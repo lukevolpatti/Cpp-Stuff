@@ -1,20 +1,38 @@
 #include <iostream>
 #include <vector>
+#include <unordered_map>
 using namespace std;
 
-int count(vector<int>& denoms, int index, int amount){
-    // Base case:
-    if(index >= denoms.size() - 1) return 1;
+// Naive recursive solution
+int count(vector<int>& denoms, int amount, int index){
+    if(amount == 0) return 1;
     
-    int num_solutions = 0;
-    for(int i = 0; amount - i * denoms[index] >= 0; i++){
-        int new_amount = amount - i * denoms[index];
-        num_solutions += count(denoms, index + 1, new_amount);
-    }
-    return num_solutions;
+    int ways = 0;
+    for(int i = 0; index < denoms.size() && amount - i*denoms[index]>=0; i++)
+        ways += count(denoms, amount - i*denoms[index], index + 1);
+    return ways;
 }
 
+// Top down dynamic programming
+int count_dp(vector<int>& denoms, int amount, int index, vector<vector<int> >& dp){
+    if(dp[amount][index]) return dp[amount][index];
+    if(amount == 0){
+        //dp[amount][index] = 1;
+        return 1;
+    }
+    
+    int ways = 0;
+    for(int i = 0; index < denoms.size() && amount - i*denoms[index]>=0; i++)
+        ways += count_dp(denoms, amount - i*denoms[index], index + 1, dp);
+    dp[amount][index] = ways;
+    return ways;
+}
+
+// Tested an working on LeetCode
 int main(){
-    vector<int> denoms = {25, 10, 5, 1};
-    cout << count(denoms, 0, 100) << endl;
+    int amount = 5;
+    vector<int> denoms = {5,2};
+    cout << count(denoms, amount, 0) << endl;
+    vector<vector<int> > dp(amount + 1, vector<int> (denoms.size()));
+    cout << count_dp(denoms, amount, 0, dp) << endl;
 }
