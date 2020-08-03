@@ -7,8 +7,9 @@ T1 GetMax(T1 a, T1 b){
     return b;
 }
 
-template <class T2>
-T2 GetMin(T2 a, T2 b){
+// Need new template for every function
+template <class T1>
+T1 GetMin(T1 a, T1 b){
     if(a > b) return b;
     return a;
 }
